@@ -62,5 +62,5 @@ auto stack<T>::pop() -> T
     if (count_)
         return array_[--count_];
     else
-        throw std::underflow_error("Stack is empty!");
+        throw std::runtime_error("Stack is empty!");
 }
