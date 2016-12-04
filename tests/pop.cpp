@@ -25,7 +25,7 @@ SCENARIO("pop() must delete the top element of the stack and return its value")
         {
             THEN("pop() must throw exception of the type underflow_error")
             {
-                REQUIRE_THROWS_AS(s.pop(), std::runtime_error);
+                REQUIRE_THROWS_AS(s.pop(), std::underflow_error);
             }
         }
     }

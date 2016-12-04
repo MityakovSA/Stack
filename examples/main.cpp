@@ -25,7 +25,7 @@ int main()
         //std::cout << "Count = " << s.count() << std::endl;
         //std::cout << "Poped: " << s.pop() << std::endl;
     }
-    catch (std::runtime_error& error)
+    catch (std::underflow_error& error)
     {
         std::cout << error.what() << std::endl;
     }
