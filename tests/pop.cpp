@@ -14,7 +14,9 @@ SCENARIO("pop() must delete the top element of the stack and return its value")
         {
             THEN("pop() must delete value 2 from the top and return it")
             {
-                REQUIRE( ((s.pop() == 2) && (s.count() == 2) && (s.pop() == 1)) == true );
+                REQUIRE(s.pop() == 2);
+                REQUIRE(s.count() == 2);
+                REQUIRE(s.pop() == 1);
             }
         }
     }
