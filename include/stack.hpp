@@ -39,7 +39,8 @@ auto stack<T>::push(const T& value) -> void
 {
     if (count_ == array_size_)
     {
-        T* new_array = new T [array_size_*=2];
+        array_size_*=2;
+        T* new_array = new T [array_size_];
         for (int i = 0; i < count_; ++i)
             new_array[i] = array_[i];
         delete[] array_;
