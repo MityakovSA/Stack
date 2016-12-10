@@ -10,10 +10,10 @@ SCENARIO("push() must add value to the top of the stack")
         WHEN("Adding an element")
         {
             s.push(0);
-            THEN("push() add value 0 to the top of the stack")
+            THEN("push() must add value 0 to the top of the stack")
             {
                 REQUIRE(s.count() == 1);
-                REQUIRE(s.pop() == 0);
+                REQUIRE(*s.top() == 0);
             }
         }
     }
@@ -28,7 +28,7 @@ SCENARIO("push() must add value to the top of the stack")
             THEN("Value 2 must be at the top of the stack and number of elements must be 3")
             {
                 REQUIRE(s.count() == 3);
-                REQUIRE(s.pop() == 2);
+                REQUIRE(*s.top() == 2);
             }
         }
     }
@@ -48,7 +48,7 @@ SCENARIO("push() must add value to the top of the stack")
             {
                 REQUIRE(s.size() == (size*2));
                 REQUIRE(s.count() == 6);
-                REQUIRE(s.pop() == 5);
+                REQUIRE(*s.top() == 5);
             }
         }
     }
