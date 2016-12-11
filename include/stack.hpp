@@ -1,5 +1,6 @@
 #include <cstddef>
 #include <stdexcept>
+#include <algorithm>
 
 
 template <typename T>
@@ -46,6 +47,19 @@ auto stack<T>::empty() const noexcept -> bool
 template <typename T>
 auto stack<T>::push(const T& value) /* strong */ -> void
 {
+    T* backup;
+
+    try
+    {
+        backup = new T[array_size_];
+        std::copy(array_, array_+count_, backup);
+    }
+    catch(...)
+    {
+        delete[] backup;
+        throw;
+    }
+
     if (count_ == array_size_)
     {
         array_size_ *= 2;
@@ -54,14 +68,14 @@ auto stack<T>::push(const T& value) /* strong */ -> void
         try
         {
             new_array = new T[array_size_];
-            for (int i = 0; i < count_; ++i)
-                new_array[i] = array_[i];
+            std::copy(array_, array_+count_, new_array);
             delete[] array_;
             array_ = new_array;
         }
         catch (...)
         {
             delete[] new_array;
+            delete[] backup;
             array_size_ /= 2;
             throw;
         }
@@ -75,9 +89,13 @@ auto stack<T>::push(const T& value) /* strong */ -> void
     }
     catch (...)
     {
+        delete[] array_;
+        array_ = backup;
+        array_size_ /= 2;
         throw;
     }
 
+    delete[] backup;
     return;
 }
 
@@ -97,11 +115,13 @@ auto stack<T>::top() const noexcept -> const T*
     if (count_)
     {
         const T* value = nullptr;
+
         try
         {
             value = &array_[count_ - 1];
         }
         catch (...) {}
+
         return value;
     }
     return nullptr;
