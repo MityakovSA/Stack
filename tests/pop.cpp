@@ -16,7 +16,7 @@ SCENARIO("pop() must delete the top element of the stack")
             THEN("pop() must delete value 2 from the top")
             {
                 REQUIRE(s.count() == 2);
-                REQUIRE(*s.top() == 1);
+                REQUIRE(s.top() == 1);
             }
         }
     }
@@ -25,10 +25,11 @@ SCENARIO("pop() must delete the top element of the stack")
         stack<int> s;
         WHEN("Calling pop()")
         {
+            s.pop();
             THEN("pop() must not do anything")
             {
                 REQUIRE(s.count() == 0);
-                REQUIRE(s.top() == nullptr);
+                REQUIRE_THROWS_AS(s.top(), std::underflow_error);
             }
         }
     }

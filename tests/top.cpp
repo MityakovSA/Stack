@@ -2,7 +2,7 @@
 #include <stack.hpp>
 
 
-SCENARIO("top() must return constant pointer on the top element of the stack")
+SCENARIO("top() must return the top element of the stack")
 {
     GIVEN("Filled stack")
     {
@@ -12,9 +12,9 @@ SCENARIO("top() must return constant pointer on the top element of the stack")
         s.push(2);
         WHEN("Calling top()")
         {
-            THEN("top() must return constant pointer on 2")
+            THEN("top() must return 2")
             {
-                REQUIRE(*s.top() == 2);
+                REQUIRE(s.top() == 2);
             }
         }
     }
@@ -23,9 +23,9 @@ SCENARIO("top() must return constant pointer on the top element of the stack")
         stack<int> s;
         WHEN("Calling top()")
         {
-            THEN("top() return nullptr")
+            THEN("top() throw exception which type is underflow_error")
             {
-                REQUIRE(s.top() == nullptr);
+                REQUIRE_THROWS_AS(s.top(), std::underflow_error);
             }
         }
     }
