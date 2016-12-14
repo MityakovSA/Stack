@@ -1,4 +1,5 @@
 #include <allocator.hpp>
+#include <stdexcept>
 
 
 template <typename T>
@@ -47,8 +48,11 @@ auto stack<T>::push(const T& value) /* strong */ -> void
 
     try
     {
-        allocator<T>::allocate();
-        realloc = true;
+        if (allocator<T>::count_ == allocator<T>::size_)
+        {
+            allocator<T>::allocate();
+            realloc = true;
+        }
     }
     catch (...)
     {

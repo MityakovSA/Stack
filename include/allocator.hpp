@@ -1,6 +1,5 @@
 #include <memory>
 #include <cstddef>
-#include <stdexcept>
 #include <algorithm>
 
 
@@ -45,21 +44,18 @@ auto allocator<T>::swap(allocator &other) -> void
 template <typename T>
 auto allocator<T>::allocate() -> void
 {
-    if (count_ == size_)
+    size_ *= 2;
+
+    try
     {
-        size_ *= 2;
-
-        try
-        {
-            reallocate();
-        }
-        catch (...)
-        {
-            size_ /= 2;
-            throw;
-        }
-
+        reallocate();
     }
+    catch (...)
+    {
+        size_ /= 2;
+        throw;
+    }
+
     return;
 }
 
